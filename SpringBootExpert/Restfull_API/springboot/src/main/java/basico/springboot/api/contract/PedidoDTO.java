@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import basico.springboot.validation.NotEmptyList;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,12 +15,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class PedidoDTO {
     
-    @NotNull(message = "Informe o codigo do cliente")
+    @NotNull(message = "{campo.codigo-cliente.obrigatorio}")
     private Integer cliente;
     
     @NotNull(message = "E obrigatorio ter uma quantidade")
     private BigDecimal total;
     
+    @NotEmptyList(message = "Pedido não pode ser realizado sem pedidos")
     private List<ItemPedidoDTO> items;
     
 }

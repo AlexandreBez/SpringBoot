@@ -26,9 +26,14 @@ import org.springframework.web.server.ResponseStatusException;
 
 import basico.springboot.db.components.Cliente;
 import basico.springboot.db.container.Clientes;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
 
 @RestController
 @RequestMapping("/api/clientes")
+@Api("Api Clientes")
 public class ClienteController {
 
     private Clientes clientes;
@@ -38,7 +43,12 @@ public class ClienteController {
     }
     
     @GetMapping("/{id}")
-    public Cliente getClienteById(@PathVariable Integer id){
+    @ApiOperation("Obter detalhes de um cliente")
+    @ApiResponse({
+        @ApiResponse(code = 200, message = "cliente encontrado"),
+        @ApiResponse(code = 404, message = "cliente não encontrado")
+    })
+    public Cliente getClienteById(@PathVariable @ApiParam("Id do cliente") Integer id){
         return clientes
                 .findById(id)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não localizado"));
