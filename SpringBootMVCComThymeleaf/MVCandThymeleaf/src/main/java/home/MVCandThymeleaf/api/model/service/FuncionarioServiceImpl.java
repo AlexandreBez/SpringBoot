@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import home.MVCandThymeleaf.api.model.components.Funcionario;
 import home.MVCandThymeleaf.api.model.rule.FuncionarioDAOImpl;
+import home.MVCandThymeleaf.api.model.rule.interfaces.FuncionarioInterface;
 import home.MVCandThymeleaf.api.model.service.interfaces.FuncionarioServiceInterface;
 
 @Service
@@ -15,7 +16,7 @@ import home.MVCandThymeleaf.api.model.service.interfaces.FuncionarioServiceInter
 public class FuncionarioServiceImpl implements FuncionarioServiceInterface{
 
     @Autowired
-    private FuncionarioDAOImpl dao;
+    private FuncionarioInterface dao;
 
     @Override
     public void salvar(Funcionario funcionario) {
@@ -42,6 +43,16 @@ public class FuncionarioServiceImpl implements FuncionarioServiceInterface{
     @Transactional(readOnly = true)
     public List<Funcionario> buscarTodos() {
         return dao.findAll();
+    }
+
+    @Override
+    public List<Funcionario> buscarPorNome(String nome) {
+        return dao.findByNome(nome);
+    }
+
+    @Override
+    public List<Funcionario> buscarPorCargo(Long id) {
+        return dao.findByCargoId(id);
     }
     
 }

@@ -44,6 +44,16 @@ public class CargoServiceImpl implements CargoServiceInterface{
     @Transactional(readOnly = true)
     public List<Cargo> buscarTodos() {
         return dao.findAll();
+    }
+
+    @Override
+    public boolean cargoTemFuncionario(Long id) {
+
+        if (buscarPorId(id).getFuncionarios().isEmpty()){
+            return false;
+        }
+    
+        return true;
     }    
     
 }
