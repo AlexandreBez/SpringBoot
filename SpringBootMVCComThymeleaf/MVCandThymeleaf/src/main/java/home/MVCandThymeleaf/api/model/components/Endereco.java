@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import home.MVCandThymeleaf.api.model.container.AbstractEntity;
 
@@ -12,22 +15,32 @@ import home.MVCandThymeleaf.api.model.container.AbstractEntity;
 @Table(name = "ENDERECOS")
 public class Endereco extends AbstractEntity<Long> {
     
+    @NotBlank
+    @Size(min = 3, max = 255)
     @Column(nullable = false)
     private String logradouro;
 
+    @NotBlank
+    @Size(min = 3, max = 255)
     @Column(nullable = false)
     private String bairro;
 
+    @NotBlank
+    @Size(min = 3, max = 255)
     @Column(nullable = false)
     private String cidade;
 
+    @NotNull(message = "{NotNull.endereco.uf}")
     @Column(nullable = false, length = 2)
     @Enumerated(EnumType.STRING)
     private UFEnum uf;
 
+    @NotBlank
+    @Size(min = 9, max = 9, message = "{Size.endereco.cep}")
     @Column(nullable = false, length = 9)
     private String cep;
 
+    @NotNull(message = "{NotNull.endereco.numero}")
     @Column(nullable = false, length = 5)
     private Integer numero;
 

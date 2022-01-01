@@ -1,5 +1,6 @@
 package home.MVCandThymeleaf.api.model.rule.interfaces;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import home.MVCandThymeleaf.api.model.components.Funcionario;
@@ -19,4 +20,10 @@ public interface FuncionarioInterface {
     List<Funcionario> findByNome(String nome);
 
     List<Funcionario> findByCargoId(Long id);
+
+    List<Funcionario> findByDataEntradaDataSaida(LocalDate entrada, LocalDate saida);
+
+    List<Funcionario> findByDataEntrada(LocalDate entrada);
+
+    List<Funcionario> findByDataSaida(LocalDate saida);
 }

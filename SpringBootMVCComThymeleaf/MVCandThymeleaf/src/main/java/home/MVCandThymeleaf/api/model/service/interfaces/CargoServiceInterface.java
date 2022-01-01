@@ -3,6 +3,7 @@ package home.MVCandThymeleaf.api.model.service.interfaces;
 import java.util.List;
 
 import home.MVCandThymeleaf.api.model.components.Cargo;
+import home.MVCandThymeleaf.api.pagination.PaginacaoUtil;
 
 public interface CargoServiceInterface {
  
@@ -17,4 +18,6 @@ public interface CargoServiceInterface {
     List<Cargo> buscarTodos();
 
     boolean cargoTemFuncionario(Long id);
+
+    PaginacaoUtil<Cargo> buscaPagina(int pagina, String direcao);
 }

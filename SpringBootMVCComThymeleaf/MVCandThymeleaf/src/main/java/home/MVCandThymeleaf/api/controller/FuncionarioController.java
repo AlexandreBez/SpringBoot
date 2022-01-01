@@ -1,11 +1,15 @@
 package home.MVCandThymeleaf.api.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +22,7 @@ import home.MVCandThymeleaf.api.model.components.Funcionario;
 import home.MVCandThymeleaf.api.model.components.UFEnum;
 import home.MVCandThymeleaf.api.model.service.interfaces.CargoServiceInterface;
 import home.MVCandThymeleaf.api.model.service.interfaces.FuncionarioServiceInterface;
+import home.MVCandThymeleaf.api.validator.FuncionarioValidator;
 
 @Controller
 @RequestMapping("/funcionarios")
@@ -28,6 +33,11 @@ public class FuncionarioController {
 
     @Autowired
     private CargoServiceInterface cargoService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder){
+        binder.addValidators(new FuncionarioValidator());
+    }
     
     @GetMapping("/cadastrar")
     public String cadastrar(Funcionario funcionario){
@@ -82,6 +92,15 @@ public class FuncionarioController {
     @ModelAttribute("cargos")
     public List<Cargo> getCargos(){
         return cargoService.buscarTodos();
+    }
+
+    @GetMapping("/buscar/data")
+    public String getPorDatas(  @RequestParam(name = "Entrada", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate entrada, 
+                                @RequestParam(name = "Saida", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate saida,
+                                ModelMap model)
+    {
+        model.addAttribute("funcionarios", FuncionarioServiceInterface.buscarPorDatas(entrada, saida));                            
+        return "/funcionario/lista";
     }
 
     @ModelAttribute("ufs")

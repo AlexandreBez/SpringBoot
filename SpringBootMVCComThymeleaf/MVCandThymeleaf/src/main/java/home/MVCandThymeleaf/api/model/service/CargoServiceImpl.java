@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import home.MVCandThymeleaf.api.model.components.Cargo;
 import home.MVCandThymeleaf.api.model.rule.CargoDAOImpl;
 import home.MVCandThymeleaf.api.model.service.interfaces.CargoServiceInterface;
+import home.MVCandThymeleaf.api.pagination.PaginacaoUtil;
 
 @Service
 public class CargoServiceImpl implements CargoServiceInterface{
@@ -54,6 +55,11 @@ public class CargoServiceImpl implements CargoServiceInterface{
         }
     
         return true;
+    }
+
+    @Override
+    public PaginacaoUtil<Cargo> buscaPagina(int pagina, String direcao){   
+        return dao.buscaPagina(pagina, direcao);
     }    
     
 }

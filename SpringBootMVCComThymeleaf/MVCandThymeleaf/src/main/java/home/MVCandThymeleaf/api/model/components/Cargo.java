@@ -8,6 +8,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import home.MVCandThymeleaf.api.model.container.AbstractEntity;
 
@@ -15,12 +18,15 @@ import home.MVCandThymeleaf.api.model.container.AbstractEntity;
 @Table(name = "CARGO")
 public class Cargo extends AbstractEntity<Long>{
     
+    @NotBlank(message = "Informe um nome")
+    @Size(min = 3, max = 60, message = "O nome deve ter entre {min} e {max} caracteres")
     @Column(name = "nome", nullable = false, unique = true, length = 60)
     private String nome;
 
     @OneToMany(mappedBy = "cargo")
     private List<Funcionario> funcionarios;
     
+    @NotNull(message = "Selecione um Departamento")
     @ManyToOne
     @JoinColumn(name = "id_departamento_fk")
     private Departamento departamento;
