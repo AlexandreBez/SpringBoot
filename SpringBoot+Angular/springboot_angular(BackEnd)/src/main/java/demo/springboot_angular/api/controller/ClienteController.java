@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import demo.springboot_angular.api.model.entity.Cliente;
 import demo.springboot_angular.api.model.repository.jpa.ClienteRepository;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -52,6 +53,11 @@ public class ClienteController {
         .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado."));
     }
 
+    @GetMapping
+    public List<Cliente> obterTodos(){
+        return repository.findAll();
+    }
+    
     @PutMapping("{id}")
     public void atualizar(@PathVariable Integer id, @RequestBody Cliente clienteAtualizado){
         return repository.findById(id)

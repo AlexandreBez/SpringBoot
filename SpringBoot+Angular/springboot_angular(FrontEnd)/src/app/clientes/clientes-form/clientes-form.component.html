@@ -1,62 +1,72 @@
 <h1 class="mt-4">Clientes</h1>
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Cadastro</li>
+  <li class="breadcrumb-item active">{{ cliente.id ? 'Edição' : 'Cadastro' }}</li>
 </ol>
 
 <div class="container">
-    <form #clienteForm="ngForm" (ngSubmit)="onSubmit">
+  <form #clienteForm="ngForm" (ngSubmit)="onSubmit">
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-sucess" role="alert" *ngIf="sucesso == true">
-                    Cliente salvo/atualizado com sucesso.
-                </div>
-
-                <div class="alert alert-danger" role="alert" *ngFor="error of errors">
-                    {{ errors }}
-                </div>
-            </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-sucess" role="alert" *ngIf="sucesso == true">
+          Cliente salvo/atualizado com sucesso.
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
+        <div class="alert alert-danger" role="alert" *ngFor="error of errors">
+          {{ errors }}
+        </div>
+      </div>
+    </div>
 
-                <div class="form-group">
-                    <label>ID:</label>
-                    <input type="text" id="form-control" [ngModel]="cliente.id" name="id" disabled=true >
-                </div>
+    <div class="row">
+      <div class="col-md-6">
 
-                <div class="form-group">
-                    <label>Data Cadastro:</label>
-                    <input type="text" id="form-control" [ngModel]="cliente.dataCadastro" name="dataCadstro" disabled=true>
-                </div>
-
-            </div>
+        <div class="form-group">
+          <label>ID:</label>
+          <input type="text" id="form-control" [ngModel]="cliente.id" name="id" disabled=true>
         </div>
 
-        <div class="row" *ngIf="cliente.id">
-            <div class="col-md-6">
-
-                <div class="form-group">
-                    <label>Nome:*</label>
-                    <input type="text" id="form-control" [(ngModel)]='cliente.nome' name="nome" >
-                </div>
-
-
-                <div class="form-group">
-                    <label>CPF:*</label>
-                    <input type="text" id="form-control" [(ngModel)]='cliente.cpf' name="cpf" >
-                </div>
-
-            </div>
+        <div class="form-group">
+          <label>Data Cadastro:</label>
+          <input type="text" id="form-control" [ngModel]="cliente.dataCadastro" name="dataCadstro" disabled=true>
         </div>
 
-        <div class="row">
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-sucess">
-                    <i class="fa fa-save"></i>Salvar
-                </button>
-            </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="cliente.id">
+      <div class="col-md-6">
+
+        <div class="form-group">
+          <label>Nome:*</label>
+          <input type="text" id="form-control" [(ngModel)]='cliente.nome' name="nome">
         </div>
-    </form>
+
+
+        <div class="form-group">
+          <label>CPF:*</label>
+          <input type="text" id="form-control" [(ngModel)]='cliente.cpf' name="cpf">
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-sucess" *ngIf="!cliente.id">
+          <i class="fa fa-save"></i>Salvar
+        </button>
+
+        <button type="submit" class="btn btn-primary" *ngIf="cliente.id">
+          <i class="fa fa-sync"></i>Salvar
+        </button>
+
+        <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">
+          <i class="fa fa-arrow-alt-circle-left"></i>Voltar
+        </button>
+
+      </div>
+    </div>
+
+  </form>
 </div>
