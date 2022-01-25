@@ -15,16 +15,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Cliente {
     
     @Id
@@ -48,4 +41,57 @@ public class Cliente {
     public void prePersist(){
         setDataCadastro(LocalDate.now());
     }
+
+    public Cliente() {}
+
+    public Cliente(
+            Integer id, 
+            @NotEmpty(message = "{campo.nome.obrigatorio}") String nome,
+            @NotNull(message = "{campo.cpf.obrigatorio}") @CPF(message = "{campo.cpf.invalido}") String cpf,
+            LocalDate dataCadastro
+    ) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataCadastro = dataCadastro;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public LocalDate getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDate dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente [cpf=" + cpf + ", dataCadastro=" + dataCadastro + ", id=" + id + ", nome=" + nome + "]";
+    }
+
+    
 }
