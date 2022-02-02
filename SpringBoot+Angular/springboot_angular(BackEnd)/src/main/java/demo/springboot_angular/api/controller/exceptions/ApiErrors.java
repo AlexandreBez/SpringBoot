@@ -2,8 +2,12 @@ package demo.springboot_angular.api.controller.exceptions;
 
 public class ApiErrors {
     
-    @Getter
+    
     private List<String> errors;
+
+    public List<String> getErrors() {
+        return errors;
+    }
 
     public ApiErrors(List<String> errors){
         this.errors = errors;

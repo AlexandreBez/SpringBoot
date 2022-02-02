@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 declare var $: any;
 
@@ -10,17 +10,4 @@ declare var $: any;
 export class AppComponent {
   title = 'springboot_angular';
 
-  ngAfterViewInit() {
-    var path = location.pathname;
-
-    $('#layoutSidenav_nav .sb-sidenav a.nav-link').each((index: any, element: any) => {
-      if ($(element).attr('href') === path) {
-        $(element).addClass("active");
-      }
-    });
-
-    $("#sidebarToggle").on("click", function (event: { preventDefault: () => void; }) {
-      $("body").toggleClass("sb-sidenav-toggled");
-    });
-  }
 }
